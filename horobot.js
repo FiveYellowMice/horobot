@@ -6,6 +6,7 @@ const yaml = require("js-yaml");
 const mime = require("mime-types");
 const tgApi = require("./lib/tg-api.js");
 const Horo = require("./lib/horo.js");
+const jsonStringifySafe = require('json-stringify-safe');
 const finalhandler = require("finalhandler");
 const serveStatic = require("serve-static")(__dirname, {
 	maxAge: 900000,
@@ -26,7 +27,7 @@ for (var i in config.groups) {
 
 // Start server
 http.createServer((request, response) => {
-	console.log(`${request.method} ${request.url}`);
+	//console.log(`${request.method} ${request.url}`);
 	
 	if (request.url === `/webhook/${config.token.webhook}/`) {
 		var body = [];
@@ -38,9 +39,9 @@ http.createServer((request, response) => {
 		serveStatic(request, response, finalhandler(request, response));
 	} else if (url.parse(request.url).pathname === "/") {
 		response.writeHead(200, {
-			"content-type": "text-html; charset=utf-8"
+			"content-type": "text/html; charset=utf-8"
 		});
-		response.end(`<!DOCTYPE html><html><head><link rel="stylesheet" href="/static/style.css"></head><body><p>🌚🌝</p><pre>${JSON.stringify(horos, null, "\t")}</pre></body></html>`);
+		response.end(`<!DOCTYPE html><html><head><link rel="stylesheet" href="/static/style.css"></head><body><p>🌚🌝</p><pre>${jsonStringifySafe(horos, null, "\t")}</pre></body></html>`);
 	} else {
 		response.statusCode = 404;
 		response.end("Not found.");
@@ -60,11 +61,13 @@ function processUpdate(updateJson) {
 	
 	if (update.message) {
 		processMessage(update.message)
-		.catch((err) => console.log(err));
+		.catch(console.log);
 	}
 }
 
-function processMessage(message) { return new Promise((resolve, reject) => {
+function processMessage(message) { return Promise.resolve().then(() => {
+	//console.log(message);
+	
 	if (["group", "supergroup"].indexOf(message.chat.type) === -1) {
 		return tgApi("sendMessage", {
 			chat_id: message.chat.id,
@@ -75,11 +78,14 @@ function processMessage(message) { return new Promise((resolve, reject) => {
 	var instance = horos.filter((h) => h.id === message.chat.id)[0];
 	
 	if (!instance) {
-		return tgApi("sendMessage", {
+		//return Promise.reject(new Error(`Group ${message.chat.id} is not registered.`));
+		return;
+		/*tgApi("sendMessage", {
 			chat_id: message.chat.id,
 			text: `Group ${message.chat.id} is not registered.`
-		});
+		});*/
 	}
 	
-	return instance.greet();
+	//console.log(message);
+	return instance.seeMessage(message);
 }); }
