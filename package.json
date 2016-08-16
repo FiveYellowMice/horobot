@@ -1,0 +1,23 @@
+{
+  "name": "horobot",
+  "version": "0.0.0",
+  "description": "A bot trying to become Horo.",
+  "main": "horobot.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/FiveYellowMice/horobot.git"
+  },
+  "author": "FiveYellowMice",
+  "license": "MIT",
+  "private": true,
+  "bugs": {
+    "url": "https://github.com/FiveYellowMice/horobot/issues"
+  },
+  "homepage": "https://github.com/FiveYellowMice/horobot#readme",
+  "dependencies": {
+    "finalhandler": "^0.5.0",
+    "js-yaml": "^3.6.1",
+    "mime-types": "^2.1.11",
+    "serve-static": "^1.11.1"
+  }
+}

@@ -1,0 +1,11 @@
+listen:
+    address: 0.0.0.0
+    port: 8080
+token:
+    api: 259128871:AAHrZhniOJc1x919OfRA6I3Mmz5rNhxVyaI
+    webhook: VmsY3vzVXGTMXbCnRcwPUY7vNxCPAZmP
+groups:
+    -   name: 某混聚的 Telegram 机器人实验室
+        id: -1001076795424
+        cooling_speed: 10
+        threshold: 100
