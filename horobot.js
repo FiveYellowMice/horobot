@@ -37,7 +37,7 @@ http.createServer((request, response) => {
 		response.end();
 	} else if (request.url.startsWith("/static/")) {
 		serveStatic(request, response, finalhandler(request, response));
-	} else if (url.parse(request.url).pathname === "/") {
+	} else if (url.parse(request.url).pathname === "/status") {
 		response.writeHead(200, {
 			"content-type": "text/html; charset=utf-8"
 		});
