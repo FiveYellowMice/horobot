@@ -38,3 +38,6 @@ jspm_packages
 
 # File manager
 .directory
+
+# Config
+/config.yaml
