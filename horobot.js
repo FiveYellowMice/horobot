@@ -86,7 +86,7 @@ function processMessage(message) { return Promise.resolve().then(() => {
 		});*/
 	}
 	
-	if (message.text.startsWith("/status@yoitsuhorobot")) {
+	if (message.text && message.text.startsWith("/status@yoitsuhorobot")) {
 		return tgApi("sendMessage", {
 			chat_id: message.chat.id,
 			text: `<b>Name: </b>${instance.name}\n` +
@@ -99,7 +99,7 @@ function processMessage(message) { return Promise.resolve().then(() => {
 			parse_mode: "HTML",
 			reply_to_message_id: message.message_id
 		});
-	} else if (message.text.startsWith("/temperature@yoitsuhorobot")) {
+	} else if (message.text && message.text.startsWith("/temperature@yoitsuhorobot")) {
 		return tgApi("sendMessage", {
 			chat_id: message.chat.id,
 			text: instance.temperature,
