@@ -86,6 +86,27 @@ function processMessage(message) { return Promise.resolve().then(() => {
 		});*/
 	}
 	
+	if (message.text.startsWith("/status@yoitsuhorobot")) {
+		return tgApi("sendMessage", {
+			chat_id: message.chat.id,
+			text: `<b>Name: </b>${instance.name}\n` +
+				`<b>ID: </b>${instance.id}\n` +
+				`<b>Temperature: </b>${instance.temperature}\n` +
+				`<b>Cooling speed: </b>${instance.coolingSpeed}\n` +
+				`<b>Threshold: </b>${instance.threshold}\n` +
+				`<b>Emojis: </b>${instance.emojis.join(" ")}\n` +
+				`\nMore: https://horobot.ml/status`,
+			parse_mode: "HTML",
+			reply_to_message_id: message.message_id
+		});
+	} else if (message.text.startsWith("/temperature@yoitsuhorobot")) {
+		return tgApi("sendMessage", {
+			chat_id: message.chat.id,
+			text: instance.temperature,
+			reply_to_message_id: message.message_id
+		});
+	}
+	
 	//console.log(message);
 	return instance.seeMessage(message);
 }); }
