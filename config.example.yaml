@@ -1,0 +1,15 @@
+listen:
+    address: 127.0.0.1
+    port: 8081
+token:
+    api: abcdefghijklmnopqrstuvwxyz
+    webhook: abcdefghijklmnopqrstuvwxyz
+groups:
+    -   name: Name of Group
+        id: Group ID
+        cooling_speed: (optional)
+        threshold: (optional)
+        emojis: (optional) Array of emojis
+        max_repeat: (optional) Max number of emojis
+    -   name: Another group
+        id: Another ID
