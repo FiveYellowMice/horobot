@@ -6,7 +6,7 @@ const yaml = require("js-yaml");
 const mime = require("mime-types");
 const tgApi = require("./lib/tg-api.js");
 const Horo = require("./lib/horo.js");
-const jsonStringifySafe = require('json-stringify-safe');
+const templates = require("./lib/templates.js");
 const finalhandler = require("finalhandler");
 const serveStatic = require("serve-static")(__dirname, {
 	maxAge: 900000,
@@ -41,7 +41,7 @@ http.createServer((request, response) => {
 		response.writeHead(200, {
 			"content-type": "text/html; charset=utf-8"
 		});
-		response.end(`<!DOCTYPE html><html><head><link rel="stylesheet" href="/static/style.css"></head><body><p>🌚🌝</p><pre>${jsonStringifySafe(horos, null, "\t")}</pre></body></html>`);
+		response.end(templates.status({ instances: horos }));
 	} else {
 		response.statusCode = 404;
 		response.end("Not found.");
