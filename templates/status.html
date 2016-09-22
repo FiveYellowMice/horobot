@@ -14,7 +14,12 @@
                 <h3><%- instance.name %></h3>
                 <ul class="instance-properties">
                     <li><strong>ID: </strong><%- instance.id %></li>
-                    <li class="instance-temperature"><strong>Temperature: </strong><%- instance.temperature %></li>
+                    <li class="instance-temperature<%
+                        if (instance.temperature <= 0)
+                            print('-cold');
+                        else if (instance.temperature >= instance.threshold)
+                            print('-hot');
+                    %>"><strong>Temperature: </strong><%- instance.temperature %></li>
                     <li><strong>Cooling speed: </strong><%- instance.coolingSpeed %></li>
                     <li><strong>Threshold: </strong><%- instance.threshold %></li>
                     <li><strong>Emojis: </strong><%- instance.emojis %></li>

@@ -17,5 +17,13 @@ body {
 }
 
 .instance-temperature {
+    color: green;
+}
+
+.instance-temperature-cold {
+    color: blue;
+}
+
+.instance-temperature-hot {
     color: red;
 }
