@@ -121,3 +121,39 @@ function processMessage(message) { return Promise.resolve().then(() => {
 	//console.log(message);
 	return instance.seeMessage(message);
 }); }
+
+// Save hot changes to config file
+if (process.env["HOROBOT_SAVE_CHANGE"]) {
+	["SIGINT", "SIGTERM", "SIGHUP"].forEach((signal) => {
+		process.on(signal, () => saveChanges(signal));
+	});
+}
+
+var savingChanges = false;
+
+function saveChanges(signal) {
+	if (savingChanges) return;
+	savingChanges = true;
+	
+	horos.forEach((horo) => {
+		var group = config.groups.filter((g) => g.id === horo.id)[0];
+		group.emojis = horo.emojis;
+	});
+	
+	console.log("Saving changes to config.yaml...");
+	fs.writeFileSync(__dirname + "/config.yaml", yaml.dump(config));
+	
+	var exitStatus;
+	switch (signal) {
+		case "SIGINT":
+			exitStatus = 130;
+			break;
+		case "SIGTERM":
+			exitStatus = 143;
+			break;
+		case "SIGHUP":
+			exitStatus = 129;
+			break;
+	}
+	process.exit(exitStatus);
+}
