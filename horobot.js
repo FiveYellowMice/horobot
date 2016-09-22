@@ -61,7 +61,12 @@ function processUpdate(updateJson) {
 	
 	if (update.message) {
 		processMessage(update.message)
-		.catch(console.log);
+		.catch((err) => {
+			console.log(err);
+			if (process.env["HOROBOT_DEBUG"]) {
+				console.error(err.stack);
+			}
+		});
 	}
 }
 
@@ -86,25 +91,31 @@ function processMessage(message) { return Promise.resolve().then(() => {
 		});*/
 	}
 	
-	if (message.text && message.text.startsWith("/status@yoitsuhorobot")) {
-		return tgApi("sendMessage", {
-			chat_id: message.chat.id,
-			text: `<b>Name: </b>${instance.name}\n` +
-				`<b>ID: </b>${instance.id}\n` +
-				`<b>Temperature: </b>${instance.temperature}\n` +
-				`<b>Cooling speed: </b>${instance.coolingSpeed}\n` +
-				`<b>Threshold: </b>${instance.threshold}\n` +
-				`<b>Emojis: </b>${instance.emojis.join(" ")}\n` +
-				`\nMore: https://horobot.ml/status`,
-			parse_mode: "HTML",
-			reply_to_message_id: message.message_id
-		});
-	} else if (message.text && message.text.startsWith("/temperature@yoitsuhorobot")) {
-		return tgApi("sendMessage", {
-			chat_id: message.chat.id,
-			text: instance.temperature,
-			reply_to_message_id: message.message_id
-		});
+	if (message.text) {
+		if (message.text.startsWith("/status@yoitsuhorobot")) {
+			return tgApi("sendMessage", {
+				chat_id: message.chat.id,
+				text: `<b>Name: </b>${instance.name}\n` +
+					`<b>ID: </b>${instance.id}\n` +
+					`<b>Temperature: </b>${instance.temperature}\n` +
+					`<b>Cooling speed: </b>${instance.coolingSpeed}\n` +
+					`<b>Threshold: </b>${instance.threshold}\n` +
+					`<b>Emojis: </b>${instance.emojis.join(" ")}\n` +
+					`\nMore: https://horobot.ml/status`,
+				parse_mode: "HTML",
+				reply_to_message_id: message.message_id
+			});
+		} else if (message.text.startsWith("/temperature@yoitsuhorobot")) {
+			return tgApi("sendMessage", {
+				chat_id: message.chat.id,
+				text: instance.temperature,
+				reply_to_message_id: message.message_id
+			});
+		} else if (message.text.startsWith("/add_emoji@yoitsuhorobot")) {
+			return instance.addEmoji(message.text.substr(25), message.message_id);
+		} else if (message.text.startsWith("/rem_emoji@yoitsuhorobot")) {
+			return instance.removeEmoji(message.text.substr(25), message.message_id);
+		}
 	}
 	
 	//console.log(message);
