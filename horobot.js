@@ -157,17 +157,5 @@ function saveChanges(signal) {
 	console.log("Saving changes to config.yaml...");
 	fs.writeFileSync(__dirname + "/config.yaml", yaml.dump(config));
 	
-	var exitStatus;
-	switch (signal) {
-		case "SIGINT":
-			exitStatus = 130;
-			break;
-		case "SIGTERM":
-			exitStatus = 143;
-			break;
-		case "SIGHUP":
-			exitStatus = 129;
-			break;
-	}
-	process.exit(exitStatus);
+	process.exit();
 }
