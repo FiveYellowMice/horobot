@@ -11,5 +11,6 @@ groups:
         threshold: (optional)
         emojis: (optional) Array of emojis
         max_repeat: (optional) Max number of emojis
+        user_emoji_limit: (optional) Limit of stored user-generated Emojis
     -   name: Another group
         id: Another ID

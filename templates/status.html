@@ -22,7 +22,8 @@
                     %>"><strong>Temperature: </strong><%- instance.temperature %></li>
                     <li><strong>Cooling speed: </strong><%- instance.coolingSpeed %></li>
                     <li><strong>Threshold: </strong><%- instance.threshold %></li>
-                    <li><strong>Emojis: </strong><%- instance.emojis %></li>
+                    <li><strong>Emojis: </strong><%- instance.emojis.join(" ") %></li>
+                    <li><strong>User-generated Emojis: </strong>(<%- instance.userEmojis.length %>/<%- instance.userEmojiLimit %>)</li>
                 </ul>
             </li>
             <% }); %>
