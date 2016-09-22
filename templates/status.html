@@ -23,7 +23,7 @@
                     <li><strong>Cooling speed: </strong><%- instance.coolingSpeed %></li>
                     <li><strong>Threshold: </strong><%- instance.threshold %></li>
                     <li><strong>Emojis: </strong><%- instance.emojis.join(" ") %></li>
-                    <li><strong>User-generated Emojis: </strong>(<%- instance.userEmojis.length %>/<%- instance.userEmojiLimit %>)</li>
+                    <li><strong>User-generated Emojis: </strong>(<%- instance.userEmojis.length %>/<%- instance.userEmojiLimit %>) <a class="group-detail-link" href="/status/<%- instance.id %>">More</a></li>
                 </ul>
             </li>
             <% }); %>

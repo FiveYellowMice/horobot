@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title><%- instance.name %></title>
+        <link rel="stylesheet" href="/static/style.css">
+    </head>
+    <body>
+        <h1><%- instance.name %></h1>
+        <p><a href="/status">Back</a></p>
+        <ul class="instance-properties">
+            <li><strong>ID: </strong><%- instance.id %></li>
+            <li class="instance-temperature<%
+                if (instance.temperature <= 0)
+                    print('-cold');
+                else if (instance.temperature >= instance.threshold)
+                    print('-hot');
+            %>"><strong>Temperature: </strong><%- instance.temperature %></li>
+            <li><strong>Cooling speed: </strong><%- instance.coolingSpeed %></li>
+            <li><strong>Threshold: </strong><%- instance.threshold %></li>
+            <li><strong>Emojis: </strong><%- instance.emojis.join(" ") %></li>
+            <li>
+                <strong>User-generated Emojis: </strong>(<%- instance.userEmojis.length %>/<%- instance.userEmojiLimit %>)<br>
+                <ul class="user-emoji-list">
+                    <% instance.userEmojis.forEach((emoji) => { %>
+                    <li><%- emoji %></li>
+                    <% }); %>
+                </ul>
+            </li>
+        </ul>
+    </body>
+</html>

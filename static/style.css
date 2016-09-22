@@ -8,6 +8,17 @@ body {
     padding: 0;
 }
 
+.user-emoji-list {
+    list-style-type: none;
+    padding: 0;
+    display: inline-block;
+}
+
+.user-emoji-list li {
+    display: inline-block;
+    margin: 8px;
+}
+
 .instance {
     margin: 24px 0;
 }
@@ -26,4 +37,24 @@ body {
 
 .instance-temperature-hot {
     color: red;
+}
+
+.group-detail-link {
+    color: black;
+    text-decoration: none;
+    border: 1px solid black;
+}
+
+.group-detail-link:link {
+    color: black;
+    text-decoration: none;
+}
+
+.group-detail-link:hover {
+    color: white;
+    background: black;
+}
+
+.group-detail-link:visited {
+    color: black;
 }

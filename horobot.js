@@ -1,3 +1,4 @@
+"use strict";
 const http = require("http");
 const fs = require("fs");
 const url = require("url");
@@ -42,6 +43,19 @@ http.createServer((request, response) => {
 			"content-type": "text/html; charset=utf-8"
 		});
 		response.end(templates.status({ instances: horos }));
+	} else if (request.url.startsWith("/status/")) {
+		let groupId = Number(url.parse(request.url).pathname.substr(8));
+		let instance = horos.filter((h) => h.id === groupId)[0];
+		
+		if (instance) {
+			response.writeHead(200, {
+				"content-type": "text/html; charset=utf-8"
+			});
+			response.end(templates.groupDetail({ instance: instance }));
+		} else {
+			response.statusCode = 404;
+			response.end("Not found.");
+		}
 	} else {
 		response.statusCode = 404;
 		response.end("Not found.");
