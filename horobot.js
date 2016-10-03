@@ -125,6 +125,8 @@ function processMessage(message) { return Promise.resolve().then(() => {
 				text: instance.temperature,
 				reply_to_message_id: message.message_id
 			});
+		} else if (message.text.startsWith("/force_send@yoitsuhorobot")) {
+			return instance.sendEmoji();
 		} else if (message.text.startsWith("/add_emoji@yoitsuhorobot")) {
 			return instance.addEmoji(message.text.substr(25), message.message_id);
 		} else if (message.text.startsWith("/rem_emoji@yoitsuhorobot")) {
