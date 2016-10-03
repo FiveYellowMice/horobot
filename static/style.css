@@ -17,6 +17,9 @@ body {
 .user-emoji-list li {
     display: inline-block;
     margin: 8px;
+    width: 8em;
+    white-space: nowrap;
+    overflow: hidden;
 }
 
 .instance {
